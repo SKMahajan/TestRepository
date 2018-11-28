@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techm.entity.Customer;
+import com.techm.exception.CustomerNotFoundException;
 import com.techm.repository.CustomerRepository;
 import com.techm.service.CustomerService;
 
@@ -56,11 +57,13 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void deleteCustomer(Long id) {
+	public void deleteCustomer(Long id) throws CustomerNotFoundException {
 		// Customer customer = null;
 		Optional<Customer> optional = customerRepository.findById(id);
 		if (optional.isPresent()) {
 			customerRepository.deleteById(id);
+		}else {
+			throw new CustomerNotFoundException("Customer not found with id="+id);
 		}
 	}
 }

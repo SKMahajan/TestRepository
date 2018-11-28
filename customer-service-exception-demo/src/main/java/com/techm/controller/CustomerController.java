@@ -2,6 +2,8 @@ package com.techm.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/customers")
-	public Customer createCustomer(@RequestBody Customer cust) {
+	public Customer createCustomer(@Valid @RequestBody Customer cust) {
 		Customer createdCustomer = customerService.createCustomer(cust);
 		return createdCustomer;
 	}

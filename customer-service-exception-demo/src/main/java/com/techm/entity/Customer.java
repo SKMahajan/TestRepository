@@ -1,11 +1,14 @@
 package com.techm.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 
 
@@ -20,15 +23,21 @@ public class Customer implements Serializable{
 	
 	private String email;
 	
+	@Size(min=2, message="firstName should have atleast 2 characters")
 	private String firstName;
 	
+	@Size(min=4, message="lastName should have atleast 4 characters")
 	private String lastName;
+	
+	@Past(message="Birthdate should be less that current date")
+	private Date birthDate;
 	
 	public Customer() {}
 	public Customer(Customer c) {
 		this.setEmail(c.getEmail());
 		this.setFirstName(c.getFirstName());
 		this.setLastName(c.getLastName());
+		this.setBirthDate(c.getBirthDate());
 	}
 
 	public Long getId() {
@@ -57,6 +66,12 @@ public class Customer implements Serializable{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 	
 	
